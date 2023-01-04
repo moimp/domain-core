@@ -1,0 +1,53 @@
+plugins {
+    id 'java'
+    id "io.freefair.lombok" version "6.2.0"
+    id 'maven-publish'
+
+}
+
+group 'org.masil.domain.core'
+version '0.1.1-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'com.google.code.gson:gson:2.8.8'
+
+    testImplementation(platform('org.junit:junit-bom:5.7.1'))
+    testImplementation('org.junit.jupiter:junit-jupiter')
+    testImplementation 'org.assertj:assertj-core:3.20.2'
+    testImplementation 'org.mockito:mockito-junit-jupiter:3.9.0'
+
+    implementation 'com.github.LenKIM.identifier:identifier-generator:0.0.36'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+repositories {
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+}
+
+test {
+    useJUnitPlatform()
+}
+
+java {
+    withSourcesJar()
+    withJavadocJar()
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId project.group
+            artifactId project.name
+            version project.version
+            from components.java
+        }
+    }
+}
